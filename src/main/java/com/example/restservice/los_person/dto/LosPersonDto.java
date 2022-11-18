@@ -17,5 +17,8 @@ public class LosPersonDto implements Serializable {
     private Long id;
     private String email;
     private String fullName;
+    private String userName;
+    private String password;
+
 
 }

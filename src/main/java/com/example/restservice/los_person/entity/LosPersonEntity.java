@@ -25,5 +25,11 @@ public class LosPersonEntity {
         @Basic
         @Column(name = "FULLNAME")
         private String fullName;
+        @Basic
+        @Column(name = "USERNAME", nullable = false, unique = true)
+        private String userName;
+        @Basic
+        @Column(name = "PASSWORD", nullable = false, unique = true)
+        private String password;
 }
 
