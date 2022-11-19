@@ -1,5 +1,6 @@
 package com.example.restservice.configuration;
 
+import com.example.restservice.authentication.JwtAuthenticationFilter;
 import com.example.restservice.los_person.service.LosPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,12 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @EnableWebSecurity
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+
     LosPersonService losPersonService;
 
     @Bean
@@ -28,6 +30,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         // Get AuthenticationManager bean
+        System.out.println("121233123");
         return super.authenticationManagerBean();
     }
 
