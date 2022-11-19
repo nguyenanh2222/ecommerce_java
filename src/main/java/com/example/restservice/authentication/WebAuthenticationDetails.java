@@ -75,7 +75,6 @@ import javax.servlet.http.HttpSession;
         public String getRemoteAddress() {
             return this.remoteAddress;
         }
-
         /**
          * Indicates the <code>HttpSession</code> id the authentication request was received
          * from.

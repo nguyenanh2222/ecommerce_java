@@ -14,6 +14,7 @@ import java.util.Collections;
 @AllArgsConstructor
 
 public class LosPersonDetail implements UserDetails {
+
     LosPersonEntity losPersonEntity;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

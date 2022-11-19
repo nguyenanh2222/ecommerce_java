@@ -99,6 +99,7 @@ public class LosPersonService extends LosPersonDto implements UserDetailsService
         return new LosPersonDetail(losPersonEntity);
     }
 
+
     public UserDetails loadUserById(Long id) throws EntityNotFoundException {
         // Kiểm tra xem user có tồn tại trong database không?
         LosPersonEntity losPersonEntity = losPersonRepository.getReferenceById(id);

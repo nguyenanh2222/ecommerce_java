@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface LosPersonRepository extends JpaRepository<LosPersonEntity, Long>, PagingAndSortingRepository<LosPersonEntity, Long> {
     LosPersonEntity findByLosPersonEntity(String username);
+
     @Override
     LosPersonEntity getReferenceById(Long id);
 }

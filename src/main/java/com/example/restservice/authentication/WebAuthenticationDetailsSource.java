@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
      * @author Ben Alex
      */
     public class WebAuthenticationDetailsSource
+
             implements AuthenticationDetailsSource<HttpServletRequest
             , WebAuthenticationDetails> {
 

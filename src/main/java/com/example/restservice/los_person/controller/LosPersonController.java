@@ -36,7 +36,6 @@ public class LosPersonController {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-
     @PostMapping("/los/person")
     public ResponseEntity<LosPersonDto> create(
             @Valid

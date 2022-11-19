@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
-
     LosPersonService losPersonService;
 
     @Bean

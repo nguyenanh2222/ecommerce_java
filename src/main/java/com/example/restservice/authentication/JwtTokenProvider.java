@@ -9,6 +9,7 @@ import java.util.Date;
 @Component
 @Slf4j
 public class JwtTokenProvider {
+
     // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
     private final String JWT_SECRET = "JWT_SECRET";
 
