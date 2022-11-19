@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +17,8 @@ public class LosPersonDetail implements UserDetails {
     LosPersonEntity losPersonEntity;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        // Mặc định mình sẽ để tất cả là ROLE_USER. Để demo cho đơn giản.
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

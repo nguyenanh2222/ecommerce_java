@@ -1,11 +1,13 @@
 package com.example.restservice.los_person.service;
 
+import com.example.restservice.authentication.LosPersonDetail;
 import com.example.restservice.los_person.dto.LosPersonDto;
 import com.example.restservice.los_person.entity.LosPersonEntity;
 import com.example.restservice.los_person.repository.LosPersonRepository;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +15,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
@@ -23,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Service
-public class LosPersonService extends LosPersonDto {
+public class LosPersonService extends LosPersonDto implements UserDetailsService {
     @Autowired
     LosPersonRepository losPersonRepository;
 
@@ -80,6 +86,26 @@ public class LosPersonService extends LosPersonDto {
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Kiểm tra xem user có tồn tại trong database không?
+        LosPersonEntity losPersonEntity = losPersonRepository.findByLosPersonEntity(username);
+        if (losPersonEntity == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new LosPersonDetail(losPersonEntity);
+    }
+
+    public UserDetails loadUserById(Long id) throws EntityNotFoundException {
+        // Kiểm tra xem user có tồn tại trong database không?
+        LosPersonEntity losPersonEntity = losPersonRepository.getReferenceById(id);
+        try{
+            return new LosPersonDetail(losPersonEntity);
+        } catch (Exception e) {
+            throw new EntityNotFoundException();
         }
     }
 }
