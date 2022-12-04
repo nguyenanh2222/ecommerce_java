@@ -84,30 +84,30 @@ public class LosPersonController {
 //        losPersonService.delete(losPerson);
 //        return ResponseEntity.ok().build();
 
-//    @PostMapping("/login")
-//    public LoginResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//
-//        // Xác thực từ username và password.
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginRequest.getUsername(),
-//                        loginRequest.getPassword()
-//                )
-//        );
-//
-//        // Nếu không xảy ra exception tức là thông tin hợp lệ
-//        // Set thông tin authentication vào Security Context
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        // Trả về jwt cho người dùng.
-//        String jwt = tokenProvider.generateToken((LosPersonDetail) authentication.getPrincipal());
-//        return new LoginResponse(jwt);
-//    }
+    @PostMapping("/login/")
+    public LoginResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-    // Api /api/random yêu cầu phải xác thực mới có thể request
-//    @GetMapping("/random")
-//    public RandomStuff randomStuff(){
-//        return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
-//    }
+        // Xác thực từ username và password.
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUserName(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        // Nếu không xảy ra exception tức là thông tin hợp lệ
+        // Set thông tin authentication vào Security Context
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // Trả về jwt cho người dùng.
+        String jwt = tokenProvider.generateToken((LosPersonDetail) authentication.getPrincipal());
+        return new LoginResponse(jwt);
+    }
+
+//     Api /api/random yêu cầu phải xác thực mới có thể request
+    @GetMapping("/random")
+    public RandomStuff randomStuff(){
+        return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
+    }
 }
 

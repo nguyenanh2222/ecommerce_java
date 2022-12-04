@@ -7,7 +7,6 @@ import com.example.restservice.los_person.repository.LosPersonRepository;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -78,6 +77,7 @@ public class LosPersonService extends LosPersonDto implements UserDetailsService
     }
 
     public ResponseEntity getLosPersonById(Integer id) {
+        System.out.println("CHO KEU LA GI");
         Optional<LosPersonEntity> losPerson = losPersonRepository.findById(Long.valueOf(id));
         if(losPerson.isPresent()){
             LosPersonDto losPersonDto = convertToDto(losPerson.get());
@@ -92,10 +92,14 @@ public class LosPersonService extends LosPersonDto implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Kiểm tra xem user có tồn tại trong database không?
-        LosPersonEntity losPersonEntity = losPersonRepository.findByLosPersonEntity(username);
+        System.out.println("CHO BIET SUA KHONG");
+        LosPersonEntity losPersonEntity = losPersonRepository.findByUserName(username);
         if (losPersonEntity == null) {
+            System.out.println("KHONG BIET SUA");
             throw new UsernameNotFoundException(username);
         }
+        System.out.println("BIET SUA");
+        System.out.println(losPersonEntity.getUserName());
         return new LosPersonDetail(losPersonEntity);
     }
 

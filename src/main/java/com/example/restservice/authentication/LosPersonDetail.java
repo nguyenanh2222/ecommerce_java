@@ -24,31 +24,33 @@ public class LosPersonDetail implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+
+        System.out.println("PASSWORD MEO MEO MEO");
+        return losPersonEntity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return losPersonEntity.getUserName();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

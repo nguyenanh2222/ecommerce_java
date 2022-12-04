@@ -8,8 +8,17 @@ import javax.validation.constraints.NotBlank;
 public class LoginRequest {
 
     @NotBlank
-    private String username;
+    private String userName;
 
     @NotBlank
     private String password;
+
+    public String userName() {
+        return userName;
+    }
+
+    public LoginRequest setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
 }
