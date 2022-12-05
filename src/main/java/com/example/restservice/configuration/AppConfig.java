@@ -40,7 +40,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         // Password encoder, để Spring Security sử dụng mã hóa mật khẩu người dùng
         PasswordEncoder pass = new BCryptPasswordEncoder();
-        System.out.println(pass);
+        System.out.println(pass.encode("123"));
         System.out.println("MEO MAY MEO MAY");
         return pass;
     }
@@ -48,7 +48,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.userDetailsService(losPersonService) // Cung cáp userservice cho spring security
+        auth.userDetailsService(losPersonService)// Cung cáp userservice cho spring security
                 .passwordEncoder(passwordEncoder());// cung cấp password encoder
     }
 
@@ -62,7 +62,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/api/login/").permitAll()
                 .antMatchers("/api/los/*").authenticated(); // Cho phép tất cả mọi người truy cập vào địa chỉ này
 //                .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
-//                .and().headers().referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.ORIGIN);
 //
 //         Thêm một lớp Filter kiểm tra jwt
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

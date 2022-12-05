@@ -89,6 +89,7 @@ public class LosPersonController {
 
         // Xác thực từ username và password.
         /// To do : Config authen here
+        System.out.println("CHO CON DI AN CO");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUserName(),

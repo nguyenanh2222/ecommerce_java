@@ -1,5 +1,6 @@
 package com.example.restservice.authentication;
 import com.example.restservice.los_person.entity.LosPersonEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ import java.util.Collections;
 @AllArgsConstructor
 
 public class LosPersonDetail implements UserDetails {
-
+    @Autowired
     LosPersonEntity losPersonEntity;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
