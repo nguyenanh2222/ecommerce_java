@@ -84,16 +84,19 @@ public class LosPersonController {
 //        losPersonService.delete(losPerson);
 //        return ResponseEntity.ok().build();
 
-    @PostMapping("/login/")
-    public LoginResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login")
+    public LoginResponse authenticateUser(@RequestBody @Valid LoginRequest loginRequest) {
 
         // Xác thực từ username và password.
+        /// To do : Config authen here
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUserName(),
                         loginRequest.getPassword()
                 )
         );
+        System.out.println("111111111");
+        System.out.println(authentication);
 
         // Nếu không xảy ra exception tức là thông tin hợp lệ
         // Set thông tin authentication vào Security Context

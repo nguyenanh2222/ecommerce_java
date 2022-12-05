@@ -22,10 +22,11 @@ public class LosPersonDetail implements UserDetails {
         return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+
+
     @Override
     public String getPassword() {
 
-        System.out.println("PASSWORD MEO MEO MEO");
         return losPersonEntity.getPassword();
     }
 
