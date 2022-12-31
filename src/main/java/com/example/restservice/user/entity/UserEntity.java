@@ -1,14 +1,18 @@
 package com.example.restservice.user.entity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Data
 @Entity
 @Table(name = "USER")
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
         @Id
         @Column(name = "id", nullable = false)
@@ -61,5 +65,7 @@ public class UserEntity {
         @Basic
         @Column(name= "last_login", nullable = false)
         private String lastLogin;
+        @ManyToMany(fetch = FetchType.EAGER)
+        private Collection<RoleEntity> roles = new ArrayList<>();
 }
 

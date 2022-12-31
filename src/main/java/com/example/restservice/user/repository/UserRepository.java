@@ -10,4 +10,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, PagingA
 
     @Override
     UserEntity getReferenceById(Long id);
+    UserEntity findByUsername(String username);
 }
