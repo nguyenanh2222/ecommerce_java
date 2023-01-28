@@ -1,7 +1,5 @@
 package com.example.restservice.dao;
 
-import com.example.restservice.user.entity.UserEntity;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,12 +14,12 @@ public class UserFolowing {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sourceId", nullable = false)
-    private UserEntity source;
+    private User source;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "targetId", nullable = false)
-    private UserEntity target;
+    private User target;
 
     @Size(max = 45)
     @Column(name = "createdAt", length = 45)
@@ -39,19 +37,19 @@ public class UserFolowing {
         this.id = id;
     }
 
-    public UserEntity getSource() {
+    public User getSource() {
         return source;
     }
 
-    public void setSource(UserEntity source) {
+    public void setSource(User source) {
         this.source = source;
     }
 
-    public UserEntity getTarget() {
+    public User getTarget() {
         return target;
     }
 
-    public void setTarget(UserEntity target) {
+    public void setTarget(User target) {
         this.target = target;
     }
 

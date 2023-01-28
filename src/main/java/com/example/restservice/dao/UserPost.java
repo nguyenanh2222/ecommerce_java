@@ -1,7 +1,5 @@
 package com.example.restservice.dao;
 
-import com.example.restservice.user.entity.UserEntity;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,7 +25,7 @@ public class UserPost {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)
-    private UserEntity user;
+    private User user;
 
     @NotNull
     @Column(name = "numberLike", nullable = false)
@@ -71,11 +69,11 @@ public class UserPost {
         this.postType = postType;
     }
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

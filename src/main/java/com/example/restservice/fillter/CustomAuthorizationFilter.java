@@ -1,4 +1,4 @@
-package com.example.restservice.auth.fillter;
+package com.example.restservice.fillter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

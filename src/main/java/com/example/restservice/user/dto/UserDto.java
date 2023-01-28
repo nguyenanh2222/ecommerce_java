@@ -1,12 +1,12 @@
 package com.example.restservice.user.dto;
-import com.example.restservice.user.entity.UserEntity;
+import com.example.restservice.dao.User;
 import lombok.Data;
 import java.io.Serializable;
 
 
 
 /**
- * A DTO for the {@link UserEntity} entity
+ * A DTO for the {@link User} entity
  */
 @Data
 

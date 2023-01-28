@@ -1,7 +1,5 @@
 package com.example.restservice.dao;
 
-import com.example.restservice.user.entity.UserEntity;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.Instant;
@@ -19,7 +17,7 @@ public class GroupMessenger {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "targetId")
-    private UserEntity target;
+    private User target;
 
     @Size(max = 255)
     @Column(name = "message")
@@ -51,11 +49,11 @@ public class GroupMessenger {
         this.source = source;
     }
 
-    public UserEntity getTarget() {
+    public User getTarget() {
         return target;
     }
 
-    public void setTarget(UserEntity target) {
+    public void setTarget(User target) {
         this.target = target;
     }
 

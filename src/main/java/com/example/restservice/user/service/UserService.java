@@ -1,8 +1,8 @@
 package com.example.restservice.user.service;
 
+import com.example.restservice.dao.Role;
+import com.example.restservice.dao.User;
 import com.example.restservice.user.dto.UserDto;
-import com.example.restservice.user.entity.RoleEntity;
-import com.example.restservice.user.entity.UserEntity;
 import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
@@ -11,17 +11,17 @@ import java.util.List;
 
 
 public interface UserService {
-    UserEntity saveUser(UserEntity user);
-    RoleEntity saveRole(RoleEntity user);
+    User saveUser(User user);
+    Role saveRole(Role user);
 
-    RoleEntity saveRoleEntity(RoleEntity role);
+    Role saveRoleEntity(Role role);
     void addRoleToUser(String username, String roelName );
-    UserEntity getUser(String username);
-    public List<UserEntity> getUsers();
-    public List<UserEntity> getUsersAuth();
-    public UserDto convertToDto(UserEntity userEntity);
+    User getUser(String username);
+    public List<User> getUsers();
+    public List<User> getUsersAuth();
+    public UserDto convertToDto(User userEntity);
 
-    UserEntity convertToEntity(UserDto UserDto) throws ParseException;
+    User convertToEntity(UserDto UserDto) throws ParseException;
 
     public default ResponseEntity<UserDto> create(@Valid UserDto UserDto) {
         return null;

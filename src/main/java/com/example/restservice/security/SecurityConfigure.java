@@ -1,7 +1,7 @@
-package com.example.restservice.auth.security;
+package com.example.restservice.security;
 
-import com.example.restservice.auth.fillter.CustomAuthenticationFilter;
-import com.example.restservice.auth.fillter.CustomAuthorizationFilter;
+import com.example.restservice.fillter.CustomAuthenticationFilter;
+import com.example.restservice.fillter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
