@@ -105,11 +105,16 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public UserEntity saveUser(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        log.info("add new user to db {}", user.getName());
+        log.info("add new user to db {}", user.getUserName());
         return userRepo.save(user);
     }
 
     @Override
+    public RoleEntity saveRoleEntity(RoleEntity role) {
+        return null;
+    }
+
+
     public RoleEntity saveRole(RoleEntity role) {
 
         log.info("add new role to db {}", role.getName());
@@ -132,6 +137,16 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<UserEntity> getUsers() {
+        return userRepo.findAll();
+    }
+
+    @Override
+    public List<UserEntity> getUsersAuth() {
+        return userRepo.findAll();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepo.findByUsername(username);
         if(user == null){
@@ -144,6 +159,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);
     }
 }

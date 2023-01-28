@@ -1,7 +1,6 @@
 package com.example.restservice.auth;
 
 import com.example.restservice.user.entity.RoleEntity;
-import com.example.restservice.user.entity.RoleEntityEntity;
 import com.example.restservice.user.service.UserService;
 
 
@@ -37,18 +36,18 @@ public class AuthApplication {
 			userService.saveRoleEntity(new RoleEntity(null, "USER_IT"));
 			userService.saveRoleEntity(new RoleEntity(null, "USER_HR"));
 
-			userService.saveUserEntity(new User(null, "Anh", "anh123", "123456", new ArrayList<>()));
-			userService.saveUser(new User(null, "Dat", "dat123", "123456", new ArrayList<>()));
-			userService.saveUser(new User(null, "Sang", "sang123", "123456", new ArrayList<>()));
-			userService.saveUser(new User(null, "Long", "long23", "123456", new ArrayList<>()));
-			userService.saveUser(new User(null, "TanLy", "tanly123", "123456", new ArrayList<>()));
-
-			userService.addRoleEntityToUser("anh123", "ROLE_USER");
-			userService.addRoleEntityToUser("anh123", "USER_HR");
-			userService.addRoleEntityToUser("dat123", "ROLE_SUPPER_USER");
-			userService.addRoleEntityToUser("sang123", "USER_MANAGE");
-			userService.addRoleEntityToUser("long23", "USER_IT");
-			userService.addRoleEntityToUser("tanly123", "USER_HR");
+//			userService.saveUserEntity(new User(null, "Anh", "anh123", "123456", new ArrayList<>()));
+//			userService.saveUser(new User(null, "Dat", "dat123", "123456", new ArrayList<>()));
+//			userService.saveUser(new User(null, "Sang", "sang123", "123456", new ArrayList<>()));
+//			userService.saveUser(new User(null, "Long", "long23", "123456", new ArrayList<>()));
+//			userService.saveUser(new User(null, "TanLy", "tanly123", "123456", new ArrayList<>()));
+//
+//			userService.addRoleEntityToUser("anh123", "ROLE_USER");
+//			userService.addRoleEntityToUser("anh123", "USER_HR");
+//			userService.addRoleEntityToUser("dat123", "ROLE_SUPPER_USER");
+//			userService.addRoleEntityToUser("sang123", "USER_MANAGE");
+//			userService.addRoleEntityToUser("long23", "USER_IT");
+//			userService.addRoleEntityToUser("tanly123", "USER_HR");
 		};
 	}
 }
