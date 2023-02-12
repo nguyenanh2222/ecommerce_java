@@ -1,4 +1,4 @@
-package com.example.restservice.auth.fillter;
+package com.example.restservice.fillter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -33,8 +33,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
             if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
                 try{
-                    System.out.println("CON MEO GAU GAU ");
-//                    System.out.println(authorizationHeader);
                     String token = authorizationHeader.substring("Bearer ".length());
                     System.out.println("token: "+token);
                     Algorithm algorithm = Algorithm.HMAC256("Secret".getBytes());

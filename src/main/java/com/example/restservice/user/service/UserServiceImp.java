@@ -1,8 +1,9 @@
 package com.example.restservice.user.service;
 
+import com.example.restservice.dao.Role;
+import com.example.restservice.dao.User;
+
 import com.example.restservice.user.dto.UserDto;
-import com.example.restservice.user.entity.RoleEntity;
-import com.example.restservice.user.entity.UserEntity;
 import com.example.restservice.user.repository.UserRepository;
 import com.example.restservice.user.repository.repo_auth.RoleRepo;
 import com.example.restservice.user.repository.repo_auth.UserRepo;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,7 +38,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UserServiceImp implements UserService, UserDetailsService {
+public class UserServiceImp implements UserService
+        ,
+        UserDetailsService
+{
     @Autowired
     UserRepository userRepository;
 
@@ -48,21 +53,21 @@ public class UserServiceImp implements UserService, UserDetailsService {
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
     @Override
-    public UserDto convertToDto(UserEntity userEntity) {
+    public UserDto convertToDto(User userEntity) {
         return modelMapper.map(userEntity, UserDto.class);
     }
 
     @Override
-    public UserEntity convertToEntity(UserDto UserDto) throws ParseException {
-        return modelMapper.map(UserDto, UserEntity.class);
+    public User convertToEntity(UserDto UserDto) throws ParseException {
+        return modelMapper.map(UserDto, User.class);
 
     }
     @Override
     public ResponseEntity<UserDto> create(
             @Valid UserDto UserDto) {
         try {
-            UserEntity userEntity = convertToEntity(UserDto);
-            UserEntity userEntitySave = userRepository.save(userEntity);
+            User userEntity = convertToEntity(UserDto);
+            User userEntitySave = userRepository.save(userEntity);
             UserDto UserDtoSave = convertToDto(userEntitySave);
             return new ResponseEntity<>(UserDtoSave, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -77,9 +82,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 sortDir.equals("asc") ? Sort.by(sortField).ascending()
                         : Sort.by(sortField).descending());
 
-        Page<UserEntity> pageUsers = userRepository.findAll(pageable);
+        Page<User> pageUsers = userRepository.findAll(pageable);
 
-        List<UserEntity> users = pageUsers.getContent();
+        List<User> users = pageUsers.getContent();
 
         List<UserDto> userDtos = users.stream()
                 .map(this::convertToDto)
@@ -92,7 +97,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
     @Override
     public ResponseEntity getUserById(Integer id) {
-        Optional<UserEntity> User = userRepository.findById(Long.valueOf(id));
+        Optional<User> User = userRepository.findById(Long.valueOf(id));
         if(User.isPresent()){
             UserDto UserDto = convertToDto(User.get());
             return new ResponseEntity<>(UserDto, HttpStatus.OK);
@@ -103,54 +108,59 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserEntity saveUser(UserEntity user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public User saveUser(User user) {
+        user.setPassword(user.getPassword());
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         log.info("add new user to db {}", user.getUserName());
         return userRepo.save(user);
     }
 
     @Override
-    public RoleEntity saveRoleEntity(RoleEntity role) {
-        return null;
-    }
-
-
-    public RoleEntity saveRole(RoleEntity role) {
+    public Role saveRole(Role role) {
 
         log.info("add new role to db {}", role.getName());
         return roleRepo.save(role);
     }
 
     @Override
+    public Role saveRoleEntity(Role role) {
+        return null;
+    }
+
+
+    @Override
     public void addRoleToUser(String username, String name) {
-        UserEntity user = userRepo.findByUsername(username);
-        RoleEntity role = roleRepo.findByName(name);
+        User user = userRepo.findByUserName(username);
+        Role role = roleRepo.findByName(name);
         log.info("add new role to user to db");
         user.getRoles().add(role);
 //        validation
     }
 
     @Override
-    public UserEntity getUser(String username) {
+    public User getUser(String username) {
         log.info("get user on db by username");
-        return userRepo.findByUsername(username);
+        return userRepo.findByUserName(username);
     }
 
     @Override
-    public List<UserEntity> getUsers() {
+    public List<User> getUsers() {
         return userRepo.findAll();
     }
 
     @Override
-    public List<UserEntity> getUsersAuth() {
+    public List<User> getUsersAuth() {
         return userRepo.findAll();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepo.findByUsername(username);
+        User user = this.userRepo.findByUserName(username);
+
+//        System.out.println(this.userRepo.findByUserName("sang").toString());
+//        System.out.println(this.userRepo.findAll());
         if(user == null){
-            log.error("user not found in database");
+            log.error("USER NOT FOUND IN DATABASE");
             throw new UsernameNotFoundException("user not found in database");
         }else{
             log.info("user found in database: {}",username);

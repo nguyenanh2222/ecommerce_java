@@ -1,10 +1,10 @@
-package com.example.restservice.auth.controller;
+package com.example.restservice.user.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.restservice.user.dto.UserDto;
-import com.example.restservice.user.entity.RoleEntity;
-import com.example.restservice.user.entity.UserEntity;
+import com.example.restservice.dao.Role;
+import com.example.restservice.dao.User;
+
 import com.example.restservice.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -35,15 +35,15 @@ public class UserResource {
     @Autowired
     private UserService userService;
     @GetMapping("/users")
-    public ResponseEntity<List<UserDto>> getUsers(){
+    public ResponseEntity<List<User>> getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
     @PostMapping("/user/save")
-    public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user){
+    public ResponseEntity<User> saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/role/save").toUriString());
         return ResponseEntity.ok().body(userService.saveUser(user));}
     @PostMapping("/role/save")
-    public ResponseEntity<RoleEntity> saveUser(@RequestBody RoleEntity role){
+    public ResponseEntity<Role> saveUser(@RequestBody Role role){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/role/save").toUriString());
         return ResponseEntity.ok().body(userService.saveRole(role));}
     @PostMapping("/role/addtouser")
@@ -64,13 +64,13 @@ public class UserResource {
                 String[] items = payloadJson.split("[{},:]");
                 for (int i = 0; i < items.length; i++) {
                     if (items[i].contains("sub")) {
-                        UserEntity user = userService.getUser(items[i + 1].substring(1, items[i + 1].length() - 1));
+                        User user = userService.getUser(items[i + 1].substring(1, items[i + 1].length() - 1));
                         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                        stream(user.getRoles().toArray(new RoleEntity[0])).forEach(role -> {
+                        stream(user.getRoles().toArray(new Role[0])).forEach(role -> {
                             authorities.add(new SimpleGrantedAuthority(role.toString()));
                         });
                         Algorithm algorithm = Algorithm.HMAC256("Secret".getBytes());
-                        String access_token = JWT.create().withSubject(user.getUsername())
+                        String access_token = JWT.create().withSubject(user.getUserName())
                                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                                 .withIssuer(request.getRequestURL().toString())
                                 .withClaim("roles", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))

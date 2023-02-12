@@ -1,7 +1,5 @@
 package com.example.restservice.dao;
 
-import com.example.restservice.user.entity.UserEntity;
-
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -18,7 +16,7 @@ public class GroupMember {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
-    private UserEntity user;
+    private User user;
 
     @Column(name = "createdAt")
     private Instant createdAt;
@@ -50,11 +48,11 @@ public class GroupMember {
         this.group = group;
     }
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -1,9 +1,10 @@
-package com.example.restservice.auth.security;
+package com.example.restservice.security;
 
-import com.example.restservice.auth.fillter.CustomAuthenticationFilter;
-import com.example.restservice.auth.fillter.CustomAuthorizationFilter;
+import com.example.restservice.fillter.CustomAuthenticationFilter;
+import com.example.restservice.fillter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,7 +24,10 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
+
     private final UserDetailsService userDetailsService;
+
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,4 +54,5 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }
+
 }
